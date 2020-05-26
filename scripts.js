@@ -9,6 +9,9 @@ class Calculator {
     this.previousElement = " ";
     this.operation = undefined;
   }
+  deleteOne() {
+    this.currentElement = this.currentElement.toString().slice(0, -1);
+  }
   updateDisplay() {
     this.currentElementDisplay.innerText = this.currentElement;
     this.previousElementDisplay.innerText = this.previousElement;
@@ -124,6 +127,11 @@ const calculator = new Calculator(
 
 clearBtn.addEventListener("click", () => {
   calculator.clearAll();
+  calculator.updateDisplay();
+});
+
+deleteBtn.addEventListener("click", () => {
+  calculator.deleteOne();
   calculator.updateDisplay();
 });
 
