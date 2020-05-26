@@ -12,10 +12,16 @@ class Calculator {
   deleteOne() {
     this.currentElement = this.currentElement.toString().slice(0, -1);
   }
-
+  formatNumber(n) {
+    return n.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   updateDisplay() {
-    this.currentElementDisplay.innerText = this.currentElement;
-    this.previousElementDisplay.innerText = this.previousElement;
+    this.currentElementDisplay.innerText = this.formatNumber(
+      this.currentElement
+    );
+    this.previousElementDisplay.innerText = this.formatNumber(
+      this.previousElement
+    );
   }
   splitNumbersFromOperation() {
     let firstNum;
