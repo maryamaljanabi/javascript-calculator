@@ -12,6 +12,7 @@ class Calculator {
   deleteOne() {
     this.currentElement = this.currentElement.toString().slice(0, -1);
   }
+
   updateDisplay() {
     this.currentElementDisplay.innerText = this.currentElement;
     this.previousElementDisplay.innerText = this.previousElement;
@@ -31,20 +32,23 @@ class Calculator {
       firstNum = this.currentElement.split(this.operation)[0];
       secondNum = this.currentElement.split(this.operation)[1];
     }
-    console.log(firstNum, secondNum);
     return [firstNum, secondNum];
   }
 
   concatDisplay(input) {
     // set a limit for the input screen
     if (this.currentElement.length > 24) return;
-    const [firstNum, secondNum] = this.splitNumbersFromOperation();
+    let [firstNum, secondNum] = this.splitNumbersFromOperation();
+    if (!secondNum) {
+      secondNum = 0;
+    }
     const operationRegex = /\-|\+|x|÷/;
     // if the first or the second num has more than one dot and the dot is pressed, skip
     if (
-      ((firstNum.toString().split(".").length > 1 && !secondNum) ||
-        (secondNum || []).toString().split(".").length > 1) &&
-      input === "."
+      (firstNum.toString().split(".").length > 1 &&
+        !this.operation &&
+        input.toString() === ".") ||
+      (secondNum.toString().split(".").length > 1 && input.toString() === ".")
     )
       return;
     // if there is no number but 0, remove it
@@ -55,6 +59,7 @@ class Calculator {
     ) {
       this.currentElement = " ";
     }
+
     this.currentElement = this.currentElement
       .toString()
       .concat(input.toString());
@@ -79,7 +84,6 @@ class Calculator {
     const secondNum = parseFloat(this.splitNumbersFromOperation()[1]);
     // if user did not enter both numbers
     if (isNaN(firstNum) || isNaN(secondNum)) {
-      alert("Please provide both numbers");
       return;
     }
     // if division is by zero
