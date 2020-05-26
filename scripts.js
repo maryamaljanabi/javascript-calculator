@@ -104,8 +104,10 @@ class Calculator {
       default:
         return;
     }
+    // remove insignificant zeroes
+    result = parseFloat(result.toFixed(6));
     this.previousElement = this.currentElement.toString();
-    this.currentElement = result.toFixed(6);
+    this.currentElement = result.toString();
     this.operation = undefined;
   }
 }
