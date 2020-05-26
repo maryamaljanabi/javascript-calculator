@@ -43,7 +43,7 @@ class Calculator {
 
   concatDisplay(input) {
     // set a limit for the input screen
-    if (this.currentElement.length > 24) return;
+    if (this.currentElement.length > 18) return;
     let [firstNum, secondNum] = this.splitNumbersFromOperation();
     if (!secondNum) {
       secondNum = 0;
@@ -73,15 +73,10 @@ class Calculator {
   manageOperation(operation) {
     // if there is a current operation, compute the current input
     if (this.operation) {
-      console.log(operation);
       this.compute();
-      this.concatDisplay(operation);
-      this.operation = operation;
-    } else {
-      // else add the operation to the current string
-      this.concatDisplay(operation);
-      this.operation = operation;
     }
+    this.concatDisplay(operation);
+    this.operation = operation;
   }
   compute() {
     let result;
